@@ -20,6 +20,11 @@ use WPGraphQL\Model\Comment;
 
 class Container
 {
+
+  private $container;
+
+  private $fields;
+  
   private static $is_first_time = true;
 
   private static $is_first_time_theme_options = true;
