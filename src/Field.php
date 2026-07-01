@@ -25,6 +25,24 @@ class Field
     $this->recursiveType = $recursiveType;
   }
 
+  /**
+   * Controla quais propriedades são serializadas
+   * Isso mantém compatibilidade com PHP 8.2 sem quebrar o cache do GraphQL
+   */
+  public function __sleep()
+  {
+    // $recursiveType NÃO é serializado (comportamento original)
+    return ['field'];
+  }
+
+  /**
+   * Reconstrói o objeto após desserialização
+   */
+  public function __wakeup()
+  {
+    $this->recursiveType = '';
+  }
+
   static public function create(CrbField $field, String $recursiveType = '')
   {
     return new Self($field, $recursiveType);
